@@ -1,0 +1,124 @@
+<div class="container">
+  <p-toast />
+
+  <div class="header-section">
+    <p-button
+      icon="pi pi-arrow-left"
+      severity="secondary"
+      [text]="true"
+      label="Back to Watchlist"
+      (onClick)="goBack()"
+    />
+
+    <h1 class="title">
+      <i class="pi pi-pencil mr-2"></i>
+      Edit Item
+    </h1>
+  </div>
+
+  @if (loading()) {
+    <app-loading-spinner />
+  } @else {
+
+    <p-card>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="grid">
+
+          <!-- Name -->
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label>Name *</label>
+              <input pInputText formControlName="name" class="w-full" />
+            </div>
+          </div>
+
+          <!-- Type -->
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label>Type *</label>
+              <p-autoComplete
+                formControlName="type"
+                [suggestions]="filteredTypes"
+                optionLabel="label"
+                optionValue="value"
+                (completeMethod)="filterTypes($event)"
+                placeholder="Select type"
+                forceSelection="true"
+                fluid
+              />
+            </div>
+          </div>
+
+          <!-- Genre -->
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label>Genre *</label>
+              <p-autoComplete
+                formControlName="genre"
+                [suggestions]="filteredGenres"
+                optionLabel="label"
+                optionValue="value"
+                (completeMethod)="filterGenres($event)"
+                placeholder="Select genre"
+                forceSelection="true"
+                fluid
+              />
+            </div>
+          </div>
+
+          <!-- Rating -->
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label>Rating *</label>
+              <p-inputNumber
+                formControlName="rating"
+                [min]="0"
+                [max]="10"
+                [step]="0.1"
+                styleClass="w-full"
+              />
+            </div>
+          </div>
+
+          <!-- Watched -->
+          <div class="col-12 md:col-6 checkbox-field">
+            <p-checkbox formControlName="watched" [binary]="true" label="Watched" />
+          </div>
+
+          <!-- Notes -->
+          <div class="col-12">
+            <div class="field">
+              <label>Notes</label>
+              <textarea
+                pInputTextarea
+                rows="4"
+                formControlName="notes"
+                class="w-full"
+              ></textarea>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="actions">
+          <p-button
+            type="submit"
+            label="Save Changes"
+            icon="pi pi-check"
+            severity="success"
+            [loading]="saving()"
+            [disabled]="form.invalid || !form.dirty"
+          />
+
+          <p-button
+            label="Cancel"
+            icon="pi pi-times"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="goBack()"
+          />
+        </div>
+      </form>
+    </p-card>
+  }
+</div>

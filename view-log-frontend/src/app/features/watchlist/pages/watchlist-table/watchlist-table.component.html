@@ -1,0 +1,191 @@
+<div class="viewlog-container">
+  <p-toast />
+
+  <!-- Header -->
+  <header class="viewlog-header">
+    <div class="header-content">
+      <div class="logo">
+        <i class="pi pi-video"></i>
+        <span>ViewLog</span>
+      </div>
+
+      <p-drawer [(visible)]="visible" position="right">
+        <app-about></app-about>
+      </p-drawer>
+
+      <p-button
+        label="About"
+        [outlined]="true"
+        severity="secondary"
+        size="small"
+        (onClick)="open()"/>
+
+    </div>
+
+  </header>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+
+    <!-- Search Bar -->
+    <div class="search-section">
+      <span class="p-input-icon-left search-input">
+        <input
+          pInputText
+          [(ngModel)]="searchText"
+          (input)="applyFilters()"
+          placeholder="Search..."
+          class="w-full" />
+      </span>
+    </div>
+
+    <!-- Filters & Table Card -->
+    <div class="table-card">
+
+      <!-- Filters -->
+      <div class="filters-bar">
+        <p-select
+          [(ngModel)]="selectedType"
+          [options]="typeOptions"
+          optionLabel="label"
+          optionValue="value"
+          (onChange)="applyFilters()"
+          placeholder="Type"
+          styleClass="filter-select" />
+
+        <p-select
+          [(ngModel)]="selectedGenre"
+          [options]="genreOptions"
+          optionLabel="label"
+          optionValue="value"
+          (onChange)="applyFilters()"
+          placeholder="Genre"
+          styleClass="filter-select" />
+
+        <p-select
+          [(ngModel)]="selectedWatched"
+          [options]="watchedOptions"
+          optionLabel="label"
+          optionValue="value"
+          (onChange)="applyFilters()"
+          placeholder="Watched"
+          styleClass="filter-select" />
+
+        <span class="filters-spacer"></span>
+
+        <p-button
+          label="Clear"
+          icon="pi pi-filter-slash"
+          severity="secondary"
+          (onClick)="clearFilters()">
+        </p-button>
+
+      </div>
+
+      <!-- Table -->
+      <p-table
+        [value]="filteredItems()"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[5,10,25]"
+        styleClass="viewlog-table">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Genre</th>
+            <th>Rating</th>
+            <th>Watched</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td class="name-cell">{{ item.name }}</td>
+
+            <td>
+              <span [class]="'type-badge ' + getTypeBadgeClass(item.type)">
+                {{ getTypeLabel(item.type) }}
+              </span>
+            </td>
+
+            <td>{{ item.genre }}</td>
+            <td>{{ item.rating }}</td>
+
+            <td>
+              <i
+                [class]="item.watched ? 'pi pi-check-circle watched-icon' : 'pi pi-times-circle unwatched-icon'"
+                (click)="toggleWatched(item)"
+                style="cursor: pointer; font-size: 1.2rem;"></i>
+            </td>
+
+            <td>
+              <div class="action-buttons">
+                <button
+                  class="action-btn edit-btn"
+                  (click)="editItem(item.id)">
+                  Edit
+                </button>
+                <button
+                  class="action-btn delete-btn"
+                  (click)="confirmDelete(item)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7" class="empty-message">
+              <i class="pi pi-inbox"></i>
+              <div class="empty-message">
+                {{ items().length === 0
+                ? 'Your watchlist is empty. Add your first item!'
+                : 'No results found. Try adjusting your search or filters.'
+                }}
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Add New Item Section -->
+    <div class="add-item-section">
+      <h2>Add New Item</h2>
+      <button class="add-new-btn" (click)="navigateToAdd()">
+        <i class="pi pi-plus"></i>
+        Add New Item
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Delete Confirmation Dialog -->
+  <p-dialog
+    [(visible)]="deleteDialog"
+    header="Confirm Delete"
+    [modal]="true"
+    [style]="{width: '450px'}">
+    <p>Are you sure you want to delete "{{ itemToDelete?.name }}"?</p>
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Cancel"
+        [outlined]="true"
+        (onClick)="deleteDialog = false" />
+      <p-button
+        label="Delete"
+        severity="danger"
+        (onClick)="deleteItem()" />
+    </ng-template>
+  </p-dialog>
+
+  <!-- Footer -->
+  <footer class="viewlog-footer">
+    <p>© 2023 ViewLog. All rights reserved.</p>
+  </footer>
+</div>

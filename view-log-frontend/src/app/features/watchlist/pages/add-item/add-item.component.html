@@ -1,0 +1,127 @@
+<div class="add-item-container">
+  <p-toast/>
+
+  <!-- Header -->
+  <header class="viewlog-header">
+    <div class="header-content">
+      <div class="logo">
+        <i class="pi pi-video"></i>
+        <span>ViewLog</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Form Content -->
+  <div class="form-wrapper">
+    <div class="form-card">
+      <h1 class="form-title">Add New Item</h1>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Name -->
+        <div class="form-field">
+          <label>Name</label>
+          <input
+            pInputText
+            formControlName="name"
+            placeholder="Enter title"
+            class="w-full"/>
+          @if (form.get('name')?.invalid && form.get('name')?.touched) {
+            <small class="error-text">Name is required.</small>
+          }
+        </div>
+
+        <!-- Type & Genre Row -->
+        <div class="form-row">
+          <div class="form-field">
+            <label>Type</label>
+            <p-select
+              formControlName="type"
+              [options]="typeOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select type"
+              styleClass="w-full"/>
+            @if (form.get('type')?.invalid && form.get('type')?.touched) {
+              <small class="error-text">Type is required.</small>
+            }
+          </div>
+
+          <div class="form-field">
+            <label>Genre</label>
+            <p-select
+              formControlName="genre"
+              [options]="genreOptions"
+              optionLabel="label"
+              optionValue="value"
+              placeholder="Select genre"
+              styleClass="w-full"/>
+            @if (form.get('genre')?.invalid && form.get('genre')?.touched) {
+              <small class="error-text">Genre is required.</small>
+            }
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="form-field">
+          <label>Rating</label>
+          <p-inputNumber
+            formControlName="rating"
+            [min]="0"
+            [max]="5"
+            [step]="0.1"
+            placeholder="138"
+            styleClass="w-full"/>
+          @if (form.get('rating')?.invalid && form.get('rating')?.touched) {
+            <small class="error-text">Rating is required (0-10).</small>
+          }
+        </div>
+
+        <!-- Watched Checkbox -->
+        <div class="form-field checkbox-field">
+          <p-checkbox
+            formControlName="watched"
+            [binary]="true"
+            inputId="watched"/>
+          <label for="watched" class="checkbox-label">Watched</label>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-field">
+          <label>Notes</label>
+          <textarea
+            pInputText
+            formControlName="notes"
+            rows="4"
+            placeholder="Add any notes..."
+            class="w-full textarea-field"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="goBack()">
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="save-btn"
+            [disabled]="form.invalid || saving()">
+            @if (saving()) {
+              <i class="pi pi-spin pi-spinner"></i>
+            }
+            Save
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="viewlog-footer">
+    <p>© 2023 ViewLog. All rights reserved.</p>
+  </footer>
+</div>
