@@ -13,7 +13,7 @@ export default [
   },
   {
     path: 'edit/:id',
-    loadComponent: () => import('./pages/edit-item/edit-item.component')
-      .then(m => m.EditItemComponent)
+    loadComponent: () => import('./pages/edit-item/edit-item.component').then(m => m.EditItemComponent)
   }
+
 ] as Routes;

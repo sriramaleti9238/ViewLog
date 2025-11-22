@@ -1,124 +1,134 @@
-<div class="container">
-  <p-toast />
+<div class="edit-item-container">
+  <p-toast/>
 
-  <div class="header-section">
-    <p-button
-      icon="pi pi-arrow-left"
-      severity="secondary"
-      [text]="true"
-      label="Back to Watchlist"
-      (onClick)="goBack()"
-    />
+  <!-- Header -->
+  <header class="viewlog-header">
+    <div class="header-content">
+      <div class="logo">
+        <i class="pi pi-video"></i>
+        <span>ViewLog</span>
+      </div>
+    </div>
+  </header>
 
-    <h1 class="title">
-      <i class="pi pi-pencil mr-2"></i>
-      Edit Item
-    </h1>
-  </div>
+  <!-- Body -->
+  <div class="form-wrapper">
+    @if (loading()) {
+      <app-loading-spinner/>
+    } @else {
 
-  @if (loading()) {
-    <app-loading-spinner />
-  } @else {
+      <div class="form-card">
+        <h1 class="form-title">Edit Item</h1>
 
-    <p-card>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="grid">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
           <!-- Name -->
-          <div class="col-12 md:col-6">
-            <div class="field">
-              <label>Name *</label>
-              <input pInputText formControlName="name" class="w-full" />
-            </div>
+          <div class="form-field">
+            <label>Name</label>
+            <input
+              pInputText
+              formControlName="name"
+              placeholder="Enter title"
+              class="w-full"/>
+            @if (form.get('name')?.invalid && form.get('name')?.touched) {
+              <small class="error-text">Name is required.</small>
+            }
           </div>
 
-          <!-- Type -->
-          <div class="col-12 md:col-6">
-            <div class="field">
-              <label>Type *</label>
-              <p-autoComplete
+          <!-- Type + Genre -->
+          <div class="form-row">
+            <div class="form-field">
+              <label>Type</label>
+              <p-select
                 formControlName="type"
-                [suggestions]="filteredTypes"
+                [options]="typeOptions"
                 optionLabel="label"
                 optionValue="value"
-                (completeMethod)="filterTypes($event)"
                 placeholder="Select type"
-                forceSelection="true"
-                fluid
-              />
+                styleClass="w-full"/>
+              @if (form.get('type')?.invalid && form.get('type')?.touched) {
+                <small class="error-text">Type is required.</small>
+              }
             </div>
-          </div>
 
-          <!-- Genre -->
-          <div class="col-12 md:col-6">
-            <div class="field">
-              <label>Genre *</label>
-              <p-autoComplete
+            <div class="form-field">
+              <label>Genre</label>
+              <p-select
                 formControlName="genre"
-                [suggestions]="filteredGenres"
+                [options]="genreOptions"
                 optionLabel="label"
                 optionValue="value"
-                (completeMethod)="filterGenres($event)"
                 placeholder="Select genre"
-                forceSelection="true"
-                fluid
-              />
+                styleClass="w-full"/>
+              @if (form.get('genre')?.invalid && form.get('genre')?.touched) {
+                <small class="error-text">Genre is required.</small>
+              }
             </div>
           </div>
 
           <!-- Rating -->
-          <div class="col-12 md:col-6">
-            <div class="field">
-              <label>Rating *</label>
-              <p-inputNumber
-                formControlName="rating"
-                [min]="0"
-                [max]="10"
-                [step]="0.1"
-                styleClass="w-full"
-              />
-            </div>
+          <div class="form-field">
+            <label>Rating</label>
+            <p-inputNumber
+              formControlName="rating"
+              [min]="0"
+              [max]="10"
+              [step]="0.1"
+              placeholder="3.5"
+            />
+            @if (form.get('rating')?.invalid && form.get('rating')?.touched) {
+              <small class="error-text">Rating must be between 0 and 10.</small>
+            }
           </div>
 
           <!-- Watched -->
-          <div class="col-12 md:col-6 checkbox-field">
-            <p-checkbox formControlName="watched" [binary]="true" label="Watched" />
+          <div class="form-field checkbox-field">
+            <p-checkbox
+              formControlName="watched"
+              [binary]="true"
+              inputId="watched"/>
+            <label for="watched" class="checkbox-label">Watched</label>
           </div>
 
           <!-- Notes -->
-          <div class="col-12">
-            <div class="field">
-              <label>Notes</label>
-              <textarea
-                pInputTextarea
-                rows="4"
-                formControlName="notes"
-                class="w-full"
-              ></textarea>
-            </div>
+          <div class="form-field">
+            <label>Notes</label>
+            <textarea
+              pInputText
+              rows="4"
+              formControlName="notes"
+              placeholder="Add any notes..."
+              class="w-full textarea-field"></textarea>
           </div>
 
-        </div>
+          <!-- Actions -->
+          <div class="form-actions">
+            <button
+              type="button"
+              class="cancel-btn"
+              (click)="goBack()">
+              Cancel
+            </button>
 
-        <div class="actions">
-          <p-button
-            type="submit"
-            label="Save Changes"
-            icon="pi pi-check"
-            severity="success"
-            [loading]="saving()"
-            [disabled]="form.invalid || !form.dirty"
-          />
+            <button
+              type="submit"
+              class="save-btn"
+              [disabled]="form.invalid || saving()">
 
-          <p-button
-            label="Cancel"
-            icon="pi pi-times"
-            severity="secondary"
-            [outlined]="true"
-            (onClick)="goBack()"
-          />
-        </div>
-      </form>
-    </p-card>
-  }
+              @if (saving()) {
+                <i class="pi pi-spin pi-spinner"></i>
+              }
+              Save Changes
+            </button>
+          </div>
+
+        </form>
+      </div>
+    }
+  </div>
+
+  <!-- Footer -->
+  <footer class="viewlog-footer">
+    <p>© 2023 ViewLog. All rights reserved.</p>
+  </footer>
 </div>

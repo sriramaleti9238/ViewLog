@@ -16,6 +16,8 @@ import { MessageService } from 'primeng/api';
 import { WatchItemCreate, WatchItem } from '../../../../core/models/watch-item.model';
 import { WatchItemService } from '../../../../core/services/watch-item.service';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
+import {WatchItemGenreOptions} from '../../../../core/models/genre-options.model';
+import {SelectModule} from 'primeng/select';
 
 @Component({
   selector: 'app-edit-item',
@@ -26,6 +28,7 @@ import { LoadingSpinnerComponent } from '../../../../shared/components/loading-s
     AutoCompleteModule,
     CardModule,
     InputTextModule,
+    SelectModule,
     InputNumberModule,
     CheckboxModule,
     ButtonModule,
@@ -59,23 +62,11 @@ export class EditItemComponent implements OnInit {
   typeOptions = [
     { label: 'Movie', value: 'MOVIE' },
     { label: 'TV Show', value: 'TV_SHOW' },
-    { label: 'Animated', value: 'ANIMATED' },
     { label: 'Documentary', value: 'DOCUMENTARY' }
   ];
   filteredTypes: any[] = [];
 
-  genreOptions = [
-    { label: 'Action', value: 'ACTION' },
-    { label: 'Adventure', value: 'ADVENTURE' },
-    { label: 'Comedy', value: 'COMEDY' },
-    { label: 'Drama', value: 'DRAMA' },
-    { label: 'Fantasy', value: 'FANTASY' },
-    { label: 'Horror', value: 'HORROR' },
-    { label: 'Mystery', value: 'MYSTERY' },
-    { label: 'Romance', value: 'ROMANCE' },
-    { label: 'Sci-Fi', value: 'SCI_FI' },
-    { label: 'Thriller', value: 'THRILLER' }
-  ];
+  genreOptions = WatchItemGenreOptions
   filteredGenres: any[] = [];
 
   filterTypes(event: any) {
@@ -90,8 +81,10 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit() {
     this.itemId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log("Editing item:", this.itemId);
     this.loadItem();
   }
+
 
   loadItem() {
     this.service.getById(this.itemId).subscribe({

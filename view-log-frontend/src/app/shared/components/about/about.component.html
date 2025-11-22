@@ -2,9 +2,9 @@
   <h2 class="title">📽️ ViewLog — Your Personal Watchlist Tracker</h2>
 
   <p class="intro">
-    <strong>ViewLog</strong> is a lightweight full-stack application designed to help you track
+    <strong>ViewLog</strong> is a clean, modern full-stack application built to help you track
     <b>Movies</b>, <b>TV Shows</b>, <b>Documentaries</b>, and <b>Animated content</b>.
-    You can manage your watchlist, rate items, add notes, and organize everything with clean UI filters.
+    Manage your watchlist, rate items, organize by genre/type, and keep personal notes.
   </p>
 
   <hr />
@@ -12,13 +12,12 @@
   <!-- FEATURES -->
   <h3>✨ Features</h3>
   <ul class="features">
-    <li>✔ Add, edit, delete Watchlist items</li>
+    <li>✔ Add / Edit / Delete watchlist items</li>
     <li>✔ Supports Movies, TV Shows, Documentaries, Animated content</li>
-    <li>✔ Mark content as <b>watched / unwatched</b></li>
-    <li>✔ Filter by type, genre, and watched status</li>
-    <li>✔ PrimeNG datatable with sorting + search</li>
+    <li>✔ Mark items as <b>Watched / Unwatched</b></li>
+    <li>✔ Search, filter & sort items in a PrimeNG DataTable</li>
+    <li>✔ Responsive UI with Angular Standalone Components</li>
     <li>✔ Reactive Forms with validation</li>
-    <li>✔ Clean, modern UI using Angular + PrimeNG</li>
     <li>✔ Drawer-based About panel</li>
   </ul>
 
@@ -28,43 +27,33 @@
   <h3>🛠 Technology Stack</h3>
 
   <ul class="stack">
-    <li><b>Frontend:</b> Angular 20, Standalone Components, PrimeNG, SCSS, Vite</li>
-    <li><b>Backend:</b> Java 21, Spring Boot 3.3, Spring Web, H2 Database</li>
-    <li><b>Architecture:</b> REST API + Component-based Angular</li>
-    <li><b>Build Tools:</b> Maven (backend), Vite (frontend)</li>
-    <li><b>Deployment:</b> Ready for Render / Netlify / Vercel / Railway</li>
+    <li><b>Frontend:</b> Angular 20, PrimeNG, SCSS, Standalone Components</li>
+    <li><b>Frontend Hosting:</b> Vercel</li>
+    <li><b>Backend:</b> Java 17, Spring Boot 3.5, Spring Web, Spring Data JPA</li>
+    <li><b>Backend Hosting:</b> Render (Free Tier)</li>
+    <li><b>Database:</b> H2 In-Memory DB</li>
+    <li><b>Build Tools:</b> Gradle (backend), Angular CLI (frontend)</li>
+    <li><b>Architecture:</b> REST API + Component-Driven UI</li>
   </ul>
 
   <hr />
 
-  <!-- API ENDPOINTS -->
-  <h3>🔗 Backend API Endpoints</h3>
-  <ul class="endpoints">
+  <!-- DEPLOYMENT LINKS -->
+  <h3>🚀 Deployment</h3>
+  <ul class="deployment">
     <li>
-      <code>GET /watchlist</code> — Fetch all items
+      🌐 <b>Frontend (Vercel):</b>
+      <a href="https://viewlog-frontend.vercel.app" target="_blank">
+        https://viewlog-frontend.vercel.app
+      </a>
     </li>
-
     <li>
-      <code>GET /watchlist/&#123;id&#125;</code> — Fetch item by ID
-    </li>
-
-    <li>
-      <code>POST /watchlist</code> — Add new item
-    </li>
-
-    <li>
-      <code>PUT /watchlist/&#123;id&#125;</code> — Update item
-    </li>
-
-    <li>
-      <code>PUT /watchlist/&#123;id&#125;/watched</code> — Toggle watched status
-    </li>
-
-    <li>
-      <code>DELETE /watchlist/&#123;id&#125;</code> — Delete item
+      🖥️ <b>Backend (Render):</b>
+      <a href="https://viewlog-backend-1-0-0.onrender.com" target="_blank">
+        https://viewlog-backend-1-0-0.onrender.com
+      </a>
     </li>
   </ul>
-
 
   <hr />
 
@@ -80,11 +69,20 @@
 
   <!-- GITHUB -->
   <h3>🌐 GitHub Repository</h3>
-  <a href="https://github.com/YOUR_REPO_LINK" target="_blank" class="github-link">
+  <a href="https://github.com/sriramaleti9238/ViewLog" target="_blank" class="github-link">
     <i class="pi pi-github mr-2"></i> Open Project on GitHub
   </a>
 
+  <hr />
+
+  <!-- CONTACT -->
+  <h3>📬 Contact</h3>
+  <p>
+    For queries, improvements, or contributions, feel free to reach out:<br />
+    <b>Email:</b> <a href="mailto:sriram.aleti2000@gmail.com">sriram.aleti2000@gmail.com</a>
+  </p>
+
   <div class="footer">
-    <p>Made with ❤️ using Angular & Spring Boot</p>
+    <p>Made with using Angular & Spring Boot</p>
   </div>
 </div>

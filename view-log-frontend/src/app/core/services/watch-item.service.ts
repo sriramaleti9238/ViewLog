@@ -2,13 +2,18 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WatchItem, WatchItemCreate } from '../models/watch-item.model';
+import {ConfigService} from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WatchItemService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8089/watchlist';
+  private readonly config = inject(ConfigService);
+
+  private get apiUrl(): string {
+    return this.config.apiUrl + '/watchlist';
+  }
 
   getAll(): Observable<WatchItem[]> {
     return this.http.get<WatchItem[]>(this.apiUrl);
