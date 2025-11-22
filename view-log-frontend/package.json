@@ -1,10 +1,11 @@
 {
-  "name": "view-log-frontend",
-  "version": "0.0.0",
+  "name": "ViewLog",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
+    "dev": "ng serve --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:view-log-frontend": "node dist/view-log-frontend/server/server.mjs"
