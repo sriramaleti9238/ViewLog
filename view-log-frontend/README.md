@@ -1,59 +1,171 @@
-# ViewLogFrontend
+# 🎨 ViewLog Frontend – Angular 20 + PrimeNG
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
+A clean, responsive UI for the ViewLog Watchlist application. The frontend interacts with the Spring Boot backend for CRUD operations.
 
-## Development server
+> 📖 **[← Back to Main README](../README.md)**
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## 🛠 Tech Stack
+
+- Angular **20**
+- PrimeNG
+- TypeScript
+- SCSS Styling
+- Angular Reactive Forms
+- Angular Router
+- SSR-Ready Build
+
+---
+
+## ▶ How to Run
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+
+### Install Dependencies
+```sh
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+### Start Dev Server
+```sh
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Runs at: **http://localhost:4200**
 
-```bash
-ng generate --help
+### Build for Production
+```sh
+npm run build
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
+### Run SSR Build
+```sh
+npm run serve:ssr:view-log-frontend
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 📜 Available Scripts
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+| Script | Command | Description |
+|--------|---------|-------------|
+| `start` | `ng serve` | Start development server |
+| `build` | `ng build` | Production build |
+| `watch` | `ng build --watch --configuration development` | Build with watch mode |
+| `test` | `ng test` | Run unit tests |
+| `serve:ssr` | `node dist/view-log-frontend/server/server.mjs` | Serve SSR build |
 
-```bash
-ng test
+---
+
+## 🌐 API Integration
+
+The backend API is configured at:
+```
+http://localhost:8089/watchlist
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+You can modify the API base URL in:
+```
+src/app/core/services/watch-item.service.ts
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📂 Project Structure
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+src/app/
+│
+├── watchlist/                  # Main table + filters component
+├── add-item/                   # Add item form component
+├── edit-item/                  # Edit item form component
+├── shared/                     # Shared components
+│   ├── spinner/                # Loading spinner
+│   ├── drawer/                 # Side drawer (About panel)
+│   └── badges/                 # Status badges
+├── core/                       # Core functionality
+│   ├── services/               # API services
+│   └── models/                 # TypeScript interfaces
+└── app.routes.ts               # Application routing
+```
+
+---
+
+## ✨ UI Features
+
+### Watchlist Table
+- Sortable columns
+- Pagination
+- Filter by Type, Genre, Watched status
+- Global search box
+
+### Forms
+- Add & Edit screens with validation
+- PrimeNG AutoComplete dropdowns
+- Rating selector
+
+### UX Components
+- Drawer-based About panel
+- Toast notifications
+- Loading spinners
+- Responsive design
+
+---
+
+## 🎨 Styling
+
+The project uses SCSS for styling:
+
+```
+src/
+├── styles.scss                 # Global styles
+└── app/
+    └── **/*.scss               # Component styles
+```
+
+---
+
+## 📦 Key Dependencies
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `@angular/core` | ^20.3.0 | Angular framework |
+| `@angular/forms` | ^20.3.0 | Reactive forms |
+| `@angular/router` | ^20.3.0 | Routing |
+| `@angular/animations` | ^20.3.12 | Animations |
+| `@angular/platform-server` | ^20.3.0 | SSR support |
+| `primeng` | latest | UI components |
+
+---
+
+## 🔧 Environment Configuration
+
+### Development
+```
+src/environments/environment.ts
+```
+
+### Production
+```
+src/environments/environment.prod.ts
+```
+
+
+---
+
+## 🚀 Deployment
+
+### Build Production Bundle
+```sh
+npm run build
+```
+
+Output: `dist/view-log-frontend/`
+
+### Serve Static Build
+Use any static server (nginx, Apache, etc.) to serve the `dist/view-log-frontend/browser/` folder.
+
+---
