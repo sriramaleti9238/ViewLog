@@ -17,6 +17,7 @@ import { WatchItemService } from '../../../../core/services/watch-item.service';
 import {WatchItemGenreOptions} from '../../../../core/models/genre-options.model';
 import {DrawerModule} from 'primeng/drawer';
 import {AboutComponent} from '../../../../shared/components/about/about.component';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-watchlist-table',
@@ -70,6 +71,8 @@ export class WatchlistTableComponent implements OnInit {
     this.visible.set(false);
   }
 
+  refreshSub!: Subscription;
+
   genreOptions = WatchItemGenreOptions
 
   watchedOptions = [
@@ -79,6 +82,10 @@ export class WatchlistTableComponent implements OnInit {
 
   ngOnInit() {
     this.loadItems();
+
+    this.refreshSub = interval(870000).subscribe(() => {
+      this.loadItems();
+    });
   }
 
   loadItems() {
@@ -208,5 +215,9 @@ export class WatchlistTableComponent implements OnInit {
 
   editItem(id: number) {
     this.router.navigate(['/edit', id]);
+  }
+
+  ngOnDestroy() {
+    this.refreshSub?.unsubscribe();
   }
 }
